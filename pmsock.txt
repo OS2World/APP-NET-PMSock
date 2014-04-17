@@ -1,0 +1,58 @@
+
+PMSock v 0.1 (ALPHA)
+--------------------
+
+This is an alpha version of PM Sockets, an OS/2 interface for IBM's TCP/IP 
+based on Windows Sockets v1.1.  PM Socket's purpose is to provide easy 
+porting of WinSock Windows 3.1 code to OS/2 and to be a free programmer's 
+toolkit for IBM TCP/IP.
+
+
+  ALPHA----ALPHA----ALPHA----ALPHA----ALPHA----ALPHA----ALPHA----ALPHA
+
+  This is ALPHA software, meaning it is subject to major change and/or 
+  major unstability.  If you use it, you become an ALPHA tester (read: 
+  Guinea-Pig) and should do the following: test every feature you can; 
+  note any bugs; list any desired features; and send your results to
+  loflin@mail.utexas.edu.
+
+  This software is copyright (c) 1994 by Don Loflin.  Use is free for
+  noncommercial uses.  
+
+  ALPHA----ALPHA----ALPHA----ALPHA----ALPHA----ALPHA----ALPHA----ALPHA
+
+
+Currently, PMSock only supports the synchronous calls of WinSock 1.1.
+A later version of PMSock will support the WinSock asynchronous calls
+(such as WSAAsync_send) in the PM environment.  This may require
+WinSock code using async calls (which is unfortunately most of it) to
+be modified more than non-async code.  Currently, non-async WinSock
+code seems to port pretty cleanly with little or no modification,
+although select() type calls may run into problems if the code accesses
+fd_set structures directly.  A sample OS/2 application using non-async 
+calls, daytime, is included in this kit.  I have ported the IMAP 3.4 
+c-client toolkit to OS/2 using PMSock, which I will make available 
+shortly.  Hopefully soon I can make the CERN WWWLib available too.
+
+
+Using the PM Sockets kit:
+------------------------
+
+This kit is designed for use with EMX/GCC 0.8h.  You may be able to adapt
+it for use with other compilers, and I may add support for others later,
+but for now, it requires EMX.  The rest of this document assumes you're
+using EMX.
+
+To write programs which use PM Sockets, include the file "pmsock.h" in
+your source, add "pmsock.o" to your object file list, and add the libraries
+"so32dll.a" and "tcp32dll.a" to your link step.  If you don't have the
+libraries, the Makefile in the PMSock kit will create them for you from the 
+corresponding DLLs if the entry for $(TCPIP) is correct.  PMSock 0.1 does not 
+require the IBM TCP/IP Programmer's Toolkit.  However, to create the 
+libraries, you will need the IMPLIB utility, which is included with most
+compilers (except EMX).  
+
+A later version of PM Sockets will probably convert to a single DLL or 
+library, avoiding the need for implib.
+
+
